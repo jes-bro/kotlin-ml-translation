@@ -12,7 +12,7 @@ Something that I expected was a heavier use of if-statements, but they recommend
 ### What questions do you have?
 I think some of the use cases of the different lambda function versions aren't entirely clear to me- I think I generally understand when they are useful, but could use a little more practice implementing them in Kotlin. 
 
--Update: Got a lot of practice with lamda usage in kotlin via the translation. 
+-Update: Got a lot of practice with lambda usage in kotlin via the translation. 
 
 ## Code Description
 The purpose of this code is to create a confusion matrix and corresponding metrics for inference data that comes from a model trained to classify desserts. This project was originally from my AI and Societ Final module. The 
