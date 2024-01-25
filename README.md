@@ -34,3 +34,5 @@ I had __zero__ idea that loading a json would be so difficult. I looked at so ma
 figured it out. I also learned that zip exists in kotlin, and I think its cool that a for each can be a one liner. I didn't expect to have to print matrices row by row. Overall, I spent a lot of time on this. It was a fun
 process though, lookin at my A1.ipynb and then basically translating to kotlin line-by-line. It was like a fun puzzle to solve. Plus I learned a lot through doing that puzzle. I really like the when structure for whatever reason. 
 I find it really intuitive, even though its basically just a switch statement. I also learned how to use maven to install libraries, and how to use the build.gradle file kind of. I still don't completely understand how build.gradle works and why you need that and the maven library install to the external libraries directory. 
+
+Also there's a chance I have a lot of extraneous files in this repo. 
