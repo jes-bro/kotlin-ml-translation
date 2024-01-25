@@ -20,7 +20,7 @@ code involves loading the inference data from a json file using the gson library
 
 - A1.kt: The main file where the aforementioned tasks take place. It generates the confusion matrix, etc., and prints the confusion matrix and metrics to the console.
 - TestConfusionMatrix.kt: Tests the confusion matrix function.
-- TestConfusionMatrixDetails.kt: Tests the confusion matrix details function. This implicitly tests the functions that calculate the metrics themselves. The confusion matrix details function calls the metrics functions and then stores the metrics as a unit (via a data class called Details) for each class.
+- TestDetails.kt: Tests the confusion matrix details function. This implicitly tests the functions that calculate the metrics themselves. The confusion matrix details function calls the metrics functions and then stores the metrics as a unit (via a data class called Details) for each class.
 
 There are data classes I generated using json2kotlin.com that essentially create data classes that correspond to json files so you can load them in kotlin. Those files generated using that site are: 
 - Class_indices
