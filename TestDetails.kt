@@ -6,7 +6,7 @@
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class CalculateConfusionMatrixDetailsTest {
+class CalculateConfusionMatrixDetailssTest {
 
     @Test
     fun testWithRegularMatrix() {
@@ -20,9 +20,9 @@ class CalculateConfusionMatrixDetailsTest {
         val result = calculateConfusionMatrixDetails(matrix, numClasses)
 
         // Assert that it works as expected
-        assertEquals(Detail(TP=2, FP=1, FN=1, TN=7), result[0])
-        assertEquals(Detail(TP=3, FP=1, FN=1, TN=6), result[1])
-        assertEquals(Detail(TP=4, FP=0, FN=0, TN=7), result[2])
+        assertEquals(Details(TP=2, FP=1, FN=1, TN=7), result[0])
+        assertEquals(Details(TP=3, FP=1, FN=1, TN=6), result[1])
+        assertEquals(Details(TP=4, FP=0, FN=0, TN=7), result[2])
     }
 
     @Test
@@ -37,9 +37,9 @@ class CalculateConfusionMatrixDetailsTest {
         val result = calculateConfusionMatrixDetails(matrix, numClasses)
 
         // Assert that there are no predictions
-        assertEquals(Detail(TP=0, FP=0, FN=0, TN=0), result[0])
-        assertEquals(Detail(TP=0, FP=0, FN=0, TN=0), result[1])
-        assertEquals(Detail(TP=0, FP=0, FN=0, TN=0), result[2])
+        assertEquals(Details(TP=0, FP=0, FN=0, TN=0), result[0])
+        assertEquals(Details(TP=0, FP=0, FN=0, TN=0), result[1])
+        assertEquals(Details(TP=0, FP=0, FN=0, TN=0), result[2])
     }
 
     @Test
@@ -49,7 +49,7 @@ class CalculateConfusionMatrixDetailsTest {
         val numClasses = 1
         val result = calculateConfusionMatrixDetails(matrix, numClasses)
 
-        assertEquals(Detail(TP=5, FP=0, FN=0, TN=0), result[0])
+        assertEquals(Details(TP=5, FP=0, FN=0, TN=0), result[0])
     }
 
     @Test
@@ -63,9 +63,9 @@ class CalculateConfusionMatrixDetailsTest {
         val result = calculateConfusionMatrixDetails(matrix, numClasses)
 
         // Assert that predictions were perfect
-        assertEquals(Detail(TP=3, FP=0, FN=0, TN=6), result[0])
-        assertEquals(Detail(TP=3, FP=0, FN=0, TN=6), result[1])
-        assertEquals(Detail(TP=3, FP=0, FN=0, TN=6), result[2])
+        assertEquals(Details(TP=3, FP=0, FN=0, TN=6), result[0])
+        assertEquals(Details(TP=3, FP=0, FN=0, TN=6), result[1])
+        assertEquals(Details(TP=3, FP=0, FN=0, TN=6), result[2])
     }
 
     @Test
@@ -79,8 +79,8 @@ class CalculateConfusionMatrixDetailsTest {
         val result = calculateConfusionMatrixDetails(matrix, numClasses)
 
         // Assert that all predictions are incorrect
-        assertEquals(Detail(TP=0, FP=3, FN=3, TN=3), result[0])
-        assertEquals(Detail(TP=0, FP=3, FN=3, TN=3), result[1])
-        assertEquals(Detail(TP=0, FP=3, FN=3, TN=3), result[2])
+        assertEquals(Details(TP=0, FP=3, FN=3, TN=3), result[0])
+        assertEquals(Details(TP=0, FP=3, FN=3, TN=3), result[1])
+        assertEquals(Details(TP=0, FP=3, FN=3, TN=3), result[2])
     }
 }

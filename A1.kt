@@ -58,7 +58,7 @@ fun printConfusionMatrix(matrix: Array<Array<Int>>) {
 }
 
 // A neat way to store the details of each class as a unit
-data class Detail(var TP: Int = 0, var FP: Int = 0, var FN: Int = 0, var TN: Int = 0)
+data class Details(var TP: Int = 0, var FP: Int = 0, var FN: Int = 0, var TN: Int = 0)
 
 /**
  * Calculate the TP Rate, FP Rate, FN Rate, and TN Rate of each class. Store
@@ -72,9 +72,9 @@ data class Detail(var TP: Int = 0, var FP: Int = 0, var FN: Int = 0, var TN: Int
  * @param numClasses The number of classes the model can sort pictures into.
  * @return A map of the classes to their details.
  */
-fun calculateConfusionMatrixDetails(matrix: Array<Array<Int>>, numClasses: Int): MutableMap<Int, Detail> {
+fun calculateConfusionMatrixDetails(matrix: Array<Array<Int>>, numClasses: Int): MutableMap<Int, Details> {
     // Mutable because its going to be iteratively populated
-    val details = mutableMapOf<Int, Detail>()
+    val details = mutableMapOf<Int, Details>()
     // Iterate through all classes
     for ( i in 0 until numClasses) {
         val TP: Int = matrix[i][i]
@@ -82,7 +82,7 @@ fun calculateConfusionMatrixDetails(matrix: Array<Array<Int>>, numClasses: Int):
         val FN: Int = calculateFalseRates(matrix, numClasses, i, TP, isFP=false)
         val TN: Int = calculateTrueNegativeRate(matrix, numClasses, i)
         // data class makes this part much shorter than it is in python!
-        details[i] = Detail(TP=TP, FP=FP, FN=FN, TN=TN)
+        details[i] = Details(TP=TP, FP=FP, FN=FN, TN=TN)
     }
     return details
 }
