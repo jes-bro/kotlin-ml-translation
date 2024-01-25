@@ -18,7 +18,7 @@
  * I'm getting tired of seeing undocumented, unsupported, and broken research
  * code).
  *
- * I learned that in kotlin docstrings you don't need to specify the types of
+ * I learned that in kotlin docstrings you're not required to specify the types of
  * anything because it's statically typed!
  */
 
@@ -33,7 +33,7 @@ import java.io.File
  * @param gtLabels The actual labels of the images that were fed to the model.
  * @param numClasses The number of classes the model can use to classify desserts.
  * @return A confusion matrix corresponding to the predictions and labels for
- * all of the classes.
+ * all the classes.
  */
 fun calculateConfusionMatrix(predictions: List<Int>, gtLabels: List<Int>, numClasses: Int): Array<Array<Int>> {
     val confusionMatrix = Array(numClasses) {Array(numClasses) {0} }
@@ -63,7 +63,7 @@ data class Detail(var TP: Int = 0, var FP: Int = 0, var FN: Int = 0, var TN: Int
  * Calculate the TP Rate, FP Rate, FN Rate, and TN Rate of each class. Store
  * them in a mutable map that maps dessert classes to their metric information.
  *
- * Specifically, the classes (ints) are mapped to a data class called Detail that
+ * Specifically, the classes (int) are mapped to a data class called Detail that
  * contains the rates.
  *
  * @param matrix The confusion matrix corresponding to the classes from the
@@ -86,7 +86,7 @@ fun calculateConfusionMatrixDetails(matrix: Array<Array<Int>>, numClasses: Int):
 }
 
 /**
- * Calculate the false postive rate or false negative rate for a given class,
+ * Calculate the false positive rate or false negative rate for a given class,
  * depending on whether isFP is true or not.
  *
  * @param matrix The confusion matrix corresponding to the classes at hand.
@@ -94,7 +94,7 @@ fun calculateConfusionMatrixDetails(matrix: Array<Array<Int>>, numClasses: Int):
  * @param i An int representing the index of the class.
  * @param TP The true positive rate of the class, needed to calculate the
  * false rates.
- * @param isFP A boolean representing whether or not to calculate the FP rate.
+ * @param isFP A boolean representing whether to calculate the FP rate or FN rate.
  * If false, the false negative rate is calculated instead.
  * @return Either the FP rate or FN rate of the class.
  */
@@ -129,11 +129,9 @@ fun calculateTrueNegativeRate(matrix: Array<Array<Int>>, numClasses: Int, i: Int
     var trueNegatives: Int = 0
 
     for (rowIndex in 0 until numClasses) {
-        if (rowIndex != i) {
-            for (colIndex in 0 until numClasses) {
-                if (colIndex != i) {
-                    trueNegatives += matrix[rowIndex][colIndex]
-                }
+        for (colIndex in 0 until numClasses) {
+            if (colIndex != i && rowIndex != i) {
+                trueNegatives += matrix[rowIndex][colIndex]
             }
         }
     }
@@ -154,7 +152,6 @@ fun main() {
     val jsonContent = jsonFile.readText()
 
     // Use Gson to parse the JSON into an instance of Json4Kotlin_Base
-    // Scoured the Internet to figure this out
     val data = Gson().fromJson(jsonContent, Json4Kotlin_Base::class.java)
 
     // Retrieve class mappings
