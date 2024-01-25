@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 class ConfusionMatrixTest {
 
     @Test
-    fun testBasicFunctionality() {
+    fun testWithEasyValues() {
         val predictions = listOf(0, 1, 1, 2)
         val gtLabels = listOf(0, 1, 2, 2)
         val numClasses = 3
@@ -13,12 +13,12 @@ class ConfusionMatrixTest {
             arrayOf(0, 1, 0),
             arrayOf(0, 1, 1)
         )
-
+        // Test that it works as expected with easy values
         assertArrayEquals(expected, calculateConfusionMatrix(predictions, gtLabels, numClasses))
     }
 
     @Test
-    fun testEmptyInput() {
+    fun testZerosInput() {
         val predictions = listOf<Int>()
         val gtLabels = listOf<Int>()
         val numClasses = 3
@@ -27,12 +27,12 @@ class ConfusionMatrixTest {
             arrayOf(0, 0, 0),
             arrayOf(0, 0, 0)
         )
-
+        // Assert it works as expected with no predictions
         assertArrayEquals(expected, calculateConfusionMatrix(predictions, gtLabels, numClasses))
     }
 
     @Test
-    fun testAllCorrectPredictions() {
+    fun testOnlyCorrectPredictions() {
         val predictions = listOf(0, 1, 2)
         val gtLabels = listOf(0, 1, 2)
         val numClasses = 3
@@ -41,12 +41,12 @@ class ConfusionMatrixTest {
             arrayOf(0, 1, 0),
             arrayOf(0, 0, 1)
         )
-
+        // Assert it works when all predictions are correct
         assertArrayEquals(expected, calculateConfusionMatrix(predictions, gtLabels, numClasses))
     }
 
     @Test
-    fun testAllIncorrectPredictions() {
+    fun testOnlyIncorrectPredictions() {
         val predictions = listOf(1, 2, 0)
         val gtLabels = listOf(0, 1, 2)
         val numClasses = 3
@@ -55,12 +55,12 @@ class ConfusionMatrixTest {
             arrayOf(0, 0, 1),
             arrayOf(1, 0, 0)
         )
-
+        // Assert it works when predictions are incorrect
         assertArrayEquals(expected, calculateConfusionMatrix(predictions, gtLabels, numClasses))
     }
 
     @Test
-    fun testWithOneClass() {
+    fun testOneClass() {
         val predictions = listOf(0, 0, 0)
         val gtLabels = listOf(0, 0, 0)
         val numClasses = 1
