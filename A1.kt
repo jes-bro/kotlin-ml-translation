@@ -1,13 +1,6 @@
 /**
  * Script that generates a confusion matrix and corresponding metrics.
  *
- * Functions:
- * Functions include calculateConfusionMatrix, printConfusionMatrix, (both are
- * pretty self-explanatory), calculateConfusionMatrix details, (which calculates
- * and organizes the TP rate, FP rate, FN rate and TN rate for a given class),
- * calculateFalseRates, and calculateTrueNegativeRate.
- *
- * Usage:
  * The main function of the script reads the json file in the kotlin-ml-translation
  * directory, loads it as a json4kotlin base class, which is architected to
  * take in data from json files with a structure particular to the AI for society
@@ -21,13 +14,8 @@
  * - Predictions_and_labels
  * - Json4Kotlin_Base
  *
- * What I learned:
- * I learned that in kotlin docstrings you're not required to specify the types of
- * anything because it's statically typed! I also now know how to use dependencies
- * in kotlin. That was a learning curve.
- *
  * PS- I documented some parts of this thoroughly for my own memory/
- * kotlin language acquisition
+ * kotlin language acquisition's sake
  */
 
 import com.google.gson.Gson // for processing the json file (harder than I thought)
