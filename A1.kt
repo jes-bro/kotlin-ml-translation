@@ -3,23 +3,28 @@
  *
  * Functions:
  * Functions include calculateConfusionMatrix, printConfusionMatrix, (both are
- * pretty self-explanatory), calculateConfusionMatrix details, which calculates
- * TP rate, FP rate, FN rate and TN rate for a given class, calculateFalseRates,
- * and calculateTrueNegativeRate.
+ * pretty self-explanatory), calculateConfusionMatrix details, (which calculates
+ * and organizes the TP rate, FP rate, FN rate and TN rate for a given class),
+ * calculateFalseRates, and calculateTrueNegativeRate.
  *
  * Usage:
  * The main function of the script reads the json file in the kotlin-ml-translation
  * directory, loads it as a json4kotlin base class, which is architected to
  * take in data from json files with a structure particular to the AI for society
  * assignment, and then calculates the confusion matrix and corresponding metrics
- * for each class.
+ * for each class. I used the site json2kotlin.com to create the data classes
+ * that correspond to the json to make it easier to import the data to kotlin.
+ * I had no idea it would be so difficult to load a json file in Kotlin.
  *
- * (PS I'm trying to get into the habit of documenting code super well because
- * I'm getting tired of seeing undocumented, unsupported, and broken research
- * code).
+ * The files created by json2kotlin.com include:
+ * - Class_indices
+ * - Predictions_and_labels
+ * - Json4Kotlin_Base
  *
+ * What I learned:
  * I learned that in kotlin docstrings you're not required to specify the types of
- * anything because it's statically typed!
+ * anything because it's statically typed! I also now know how to use dependencies
+ * in kotlin. That was a learning curve.
  */
 
 import com.google.gson.Gson // for processing the json file (harder than I thought)
@@ -36,7 +41,9 @@ import java.io.File
  * all the classes.
  */
 fun calculateConfusionMatrix(predictions: List<Int>, gtLabels: List<Int>, numClasses: Int): Array<Array<Int>> {
+    // Initialize a matrix of zeros that has dims numClasses by numClasses
     val confusionMatrix = Array(numClasses) {Array(numClasses) {0} }
+    // Zip the ground truth labels and the predictions. Increment each box in the confusion matrix to populate it
     gtLabels.zip(predictions).forEach() { pair -> confusionMatrix[pair.component1()][pair.component2()]++ }
     return confusionMatrix
 }
@@ -52,6 +59,7 @@ fun calculateConfusionMatrix(predictions: List<Int>, gtLabels: List<Int>, numCla
  */
 fun printConfusionMatrix(matrix: Array<Array<Int>>) {
     for (row in matrix) {
+        // Print each row in the matrix separated by a space
         println(row.joinToString(" "))
     }
 }
@@ -72,8 +80,9 @@ data class Detail(var TP: Int = 0, var FP: Int = 0, var FN: Int = 0, var TN: Int
  * @return A map of the classes to their details.
  */
 fun calculateConfusionMatrixDetails(matrix: Array<Array<Int>>, numClasses: Int): MutableMap<Int, Detail> {
+    // Mutable because its going to be iteratively populated
     val details = mutableMapOf<Int, Detail>()
-
+    // Iterate through all classes
     for ( i in 0 until numClasses) {
         val TP: Int = matrix[i][i]
         val FP: Int = calculateFalseRates(matrix, numClasses, i, TP, isFP=true)
@@ -90,7 +99,7 @@ fun calculateConfusionMatrixDetails(matrix: Array<Array<Int>>, numClasses: Int):
  * depending on whether isFP is true or not.
  *
  * @param matrix The confusion matrix corresponding to the classes at hand.
- * @param numClasses an int representing the number of classes.
+ * @param numClasses An int representing the number of classes.
  * @param i An int representing the index of the class.
  * @param TP The true positive rate of the class, needed to calculate the
  * false rates.
@@ -102,13 +111,13 @@ fun calculateFalseRates(matrix: Array<Array<Int>>, numClasses: Int, i: Int, TP: 
     var total: Int = 0
 
     when (isFP) {
-        // FP
+        // FP definition
         true -> {
             for (j in 0 until numClasses) {
                 total += matrix[j][i]
             }
         }
-        // FN
+        // FN definition
         false -> for (j in 0 until numClasses) {
             total += matrix[i][j]
         }
@@ -130,6 +139,8 @@ fun calculateTrueNegativeRate(matrix: Array<Array<Int>>, numClasses: Int, i: Int
 
     for (rowIndex in 0 until numClasses) {
         for (colIndex in 0 until numClasses) {
+            // All boxes are counted except for the ones in the ith row and column
+            // by definition
             if (colIndex != i && rowIndex != i) {
                 trueNegatives += matrix[rowIndex][colIndex]
             }
@@ -151,29 +162,30 @@ fun main() {
     val jsonFile = File("model0.json")
     val jsonContent = jsonFile.readText()
 
-    // Use Gson to parse the JSON into an instance of Json4Kotlin_Base
+    // Use Gson to parse the json file into a Json4KotlinBase instance
     val data = Gson().fromJson(jsonContent, Json4Kotlin_Base::class.java)
 
-    // Retrieve class mappings
-    val classIndices = data.class_indices // Was used to calculate numClasses
-    // and ended up using a different way
-    // println(classIndices)
-
-    // Retrieve predictions
+    // Get the predictions from the data
     val predictions = data.predictions_and_labels.map { it.prediction_idx }
     // println(predictions)
 
-    // Retrieve ground truth labels
+    // Get the labels
     val gtLabels = data.predictions_and_labels.map { it.gt_idx }
     // println(gtLabels)
 
+    // Using toSet() because you only want the number of unique items
+    // when counting the number of classes. I could have also
+    // calculated this by just counting the class indices
     val numClasses = predictions.toSet().size
     // print(numClasses)
 
+    // Calculate confusion matrix
     val matrix = calculateConfusionMatrix(predictions, gtLabels, numClasses)
 
+    // Calculate matrix metrics/details
     val details = calculateConfusionMatrixDetails(matrix, numClasses)
 
+    // Display the matrix and details!
     printConfusionMatrix(matrix)
     println(details)
 }
