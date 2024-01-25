@@ -25,6 +25,9 @@
  * I learned that in kotlin docstrings you're not required to specify the types of
  * anything because it's statically typed! I also now know how to use dependencies
  * in kotlin. That was a learning curve.
+ *
+ * PS- I documented some parts of this thoroughly for my own memory/
+ * kotlin language acquisition
  */
 
 import com.google.gson.Gson // for processing the json file (harder than I thought)
@@ -44,6 +47,8 @@ fun calculateConfusionMatrix(predictions: List<Int>, gtLabels: List<Int>, numCla
     // Initialize a matrix of zeros that has dims numClasses by numClasses
     val confusionMatrix = Array(numClasses) {Array(numClasses) {0} }
     // Zip the ground truth labels and the predictions. Increment each box in the confusion matrix to populate it
+    // The lambda is the param of the for each, and pair is the parameter of the lambda
+    // the stuff to the right of the arrow indicates the operation to do on pair
     gtLabels.zip(predictions).forEach() { pair -> confusionMatrix[pair.component1()][pair.component2()]++ }
     return confusionMatrix
 }
