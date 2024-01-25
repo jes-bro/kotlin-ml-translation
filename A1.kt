@@ -15,7 +15,7 @@
  * - Json4Kotlin_Base
  *
  * PS- I documented some parts of this thoroughly for my own memory/
- * kotlin language acquisition's sake
+ * kotlin language acquisition
  */
 
 import com.google.gson.Gson // for processing the json file (harder than I thought)
