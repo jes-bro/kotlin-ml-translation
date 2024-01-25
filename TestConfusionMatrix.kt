@@ -1,3 +1,6 @@
+/**
+ * Test file for the calculateConfusionMatrix function
+ */
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Test
 
@@ -65,7 +68,7 @@ class ConfusionMatrixTest {
         val gtLabels = listOf(0, 0, 0)
         val numClasses = 1
         val expected = arrayOf(arrayOf(3))
-
+        // Assert it works with one class
         assertArrayEquals(expected, calculateConfusionMatrix(predictions, gtLabels, numClasses))
     }
 
@@ -75,7 +78,7 @@ class ConfusionMatrixTest {
         val gtLabels = (0 until 100).toList()
         val numClasses = 100
         val expected = Array(numClasses) { i -> Array(numClasses) { j -> if (i == j) 1 else 0 } }
-
+        // Assert it works with many classes
         assertArrayEquals(expected, calculateConfusionMatrix(predictions, gtLabels, numClasses))
     }
 }
